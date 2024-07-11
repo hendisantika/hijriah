@@ -17,11 +17,12 @@ RUN pnpm i
 COPY ./ /app
 # Build the TypeScript code
 RUN pnpm run build
+RUN pnpm generate
 # Expose the app
 ENV PORT=3001
 EXPOSE 3001
 # Start the application
-#CMD ["pnpm", "start"]
-CMD ["node", "/app/.output/server/index.mjs"]
+CMD ["pnpm", "start"]
+#CMD ["node", "/app/.output/server/index.mjs"]
 # run the build project with node
 #ENTRYPOINT ["node", ".output/server/index.mjs"]
