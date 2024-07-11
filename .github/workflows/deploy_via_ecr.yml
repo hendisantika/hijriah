@@ -197,28 +197,63 @@ jobs:
         with:
           registry-type: private
 
-      #      - name: connect and pull
-      #        env:
-      #          ECR_REGISTRY: ${{ steps.login-pf-aws-ecr.outputs.registry }}
-      #          ECR_REPOSITORY: ${{secrets.AWS_ECR_REPO}}
-      #          IMAGE_TAG: ${{ github.run_number }}
-      #        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} "cd /var/www/DALIM && export ECR_PW=`aws ecr get-login-password --region ap-southeast1 --output text | docker login --username AWS --password-stdin` && docker pull $ECR_REGISTRY/$ECR_REPOSITORY:latest && docker compose pull && docker compose up -d && exit"
-
-      - name: Docker pull & run from github
-        uses: appleboy/ssh-action@master
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
+          sudo chmod 600 ~/.ssh/private.key
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          sudo chmod 600 ~/.ssh/known_hosts
+        shell: bash
         env:
+          SERVER_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SERVER_PORT: ${{ secrets.SSH_PORT }}
+          SERVER_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PRIVATE_KEY: ${{secrets.SSH_KEY}}
+          SSH_KNOWN_HOSTS: ${{secrets.SSH_HOST}}
+
+      - name: Set all environment variables
+        env:
+          SERVER_HOST: ${{ secrets.SSH_HOST }}
+          SERVER_PORT: ${{ secrets.SSH_PORT }}
+          SERVER_USERNAME: ${{ secrets.SSH_USERNAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO }}
+          ECR_REPOSITORY: hijriah
           IMAGE_TAG: ${{ github.run_number }}
+          CONTAINER_NAME: hijriah
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
+          APP_PORT: ${{ vars.APP_PORT_DEV }}
+        run: |
+          echo AWS_REGION=$AWS_REGION >> .env
+          echo AWS_ECR_REGISTRY=$AWS_ECR_REGISTRY >> .env
+          echo CONTAINER_NAME=$CONTAINER_NAME >> .env
+          echo ECR_REPOSITORY=$ECR_REPOSITORY >> .env
+          echo IMAGE_TAG=$IMAGE_TAG >> .env
+          echo APP_PORT=$APP_PORT >> .env
+
+      - name: Copy all environment variables
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          envs: ECR_REGISTRY, CONTAINER_NAME, IMAGE_TAG
-          allenvs: true
-          script: |
-            docker system prune -af
-            docker stop $CONTAINER_NAME
-            docker rm $CONTAINER_NAME
-            docker pull $ECR_REGISTRY/$CONTAINER_NAME:$IMAGE_TAG
-            docker run -d --rm --name $CONTAINER_NAME -p 3001:3001 $ECR_REGISTRY/$CONTAINER_NAME:$IMAGE_TAG
+          port: ${{ secrets.SSH_PORT }}
+          source: "./.env"  # Path to the file on your runner
+          target: "~/hijriah"  # Target directory on the server
+
+      - name: Run the application
+        env:
+          SERVER_HOST: ${{ secrets.SSH_HOST }}
+          SERVER_PORT: ${{ secrets.SSH_PORT }}
+          SERVER_USERNAME: ${{ secrets.SSH_USERNAME }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: hijriah
+          IMAGE_TAG: ${{ github.run_number }}
+          CONTAINER_NAME: hijriah
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
+          APP_PORT: ${{ vars.APP_PORT_DEV }}
+        run: |
+          set -e
+          ./deploy.sh
