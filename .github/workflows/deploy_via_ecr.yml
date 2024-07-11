@@ -1,0 +1,224 @@
+name: Deploy WEB APP
+on:
+  push:
+    branches:
+      - master
+env:
+  ENV_GITHUB: ${{ vars.ENV_GITHUB }}
+  IMAGE_TAG: ${{ github.run_number }}
+  CONTAINER_NAME: hijriah
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ github.actor }}/hijriah:$IMAGE_TAG
+
+jobs:
+  project-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v3
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run Production
+        run: pnpm run build
+
+  docker-build:
+    if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    needs:
+      - project-build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log into the Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Scrape build info
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: hendisantika/hijriah:${{ github.run_number }}
+          build-args: |
+            GIT_VERSION_TAG=${{ env.RELEASE_VERSION }}
+            GIT_COMMIT_MESSAGE=${{ github.event.head_commit.message }}
+            GIT_VERSION_HASH=${{ github.sha }}
+            DOCKER_CONTAINER_TAG=${{ github.run_number }}
+  #  deploy:
+  #    if: ${{ github.ref == 'refs/heads/master' }}
+  #    runs-on: ubuntu-latest
+  #    needs:
+  #      - docker-build
+  #    steps:
+  #      - uses: actions/checkout@v4.1.1
+  #
+  #      - name: Add Server key
+  #        run: |
+  #          touch key.txt && echo "${{ secrets.SSH_KEY }}" > key.txt
+  #          chmod 600 key.txt
+  #
+  #      - name: Make executeable
+  #        run: |
+  #          git update-index --chmod=+x ./scripts/deploy.sh
+  #          chmod +x ./scripts/deploy.sh
+  #
+  #      - name: Pull environment form variable
+  #        run: |
+  #          echo "$ENV_GITHUB" > .env_github
+  #
+  #      - id: dotenv_github
+  #        name: Read dotenv file for github env
+  #        uses: falti/dotenv-action@v1.0.4
+  #        with:
+  #          path: '.env_github'
+  #          export-variables: true
+  #          log-variables: false
+  #          mask-variables: true
+  #          keys-case: 'bypass'
+  #
+  #      - name: Deploy the application
+  #        env:
+  #          SERVER_HOST: ${{ secrets.HOST }}
+  #          SERVER_PORT: ${{ secrets.SSH_PORT }}
+  #          SERVER_USER: ${{ secrets.SSH_USER }}
+  #          SERVER_KEY: ${{ secrets.SSH_KEY }}
+  #          CONTAINER_NAME: hijriah
+  #          DOCKER_CONTAINER_TAG: ${{ secrets.DOCKER_CONTAINER_TAG }}
+  #          #          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+  #          IMAGE_TAG: ${{ github.run_number }}
+  #        run: |
+  #          set -e
+  #          ssh -p ${SERVER_PORT} ${SERVER_USER}@${SERVER_HOST} -i key.txt -t -t -o StrictHostKeyChecking=no << 'ENDSSH'
+  #          #          docker pull hendisantika/hijriah:${{ env.IMAGE_TAG }}
+  #          ./scripts/deploy.sh
+
+  #  publish:
+  #    name: publish image to docker hub
+  #    runs-on: ubuntu-latest
+  #    needs:
+  #      - docker-build
+  #    steps:
+  #      - uses: actions/checkout@v3
+  #      - name: Login
+  #        run: |
+  #          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login docker.io -u ${{ github.actor }} --password-stdin
+  #      - name: Build and Publish Backend
+  #        run: |
+  #          docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+  #          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+  push-to-ecr:
+    runs-on: ubuntu-latest
+    needs: project-build
+    env:
+      IMAGE_TAG: ${{ github.run_number }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - run: docker build --tag hijriah:$IMAGE_TAG .
+
+      - name: Push to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-pf-aws-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{secrets.AWS_ECR_REPO}}
+          IMAGE_TAG: ${{ github.run_number }}
+        id: ecr
+        uses: jwalton/gh-ecr-push@v1
+        with:
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+          region: ${{ secrets.AWS_REGION }}
+          image: hijriah:$IMAGE_TAG
+
+  deploy:
+    needs: push-to-ecr
+    name: deploy image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: install ssh keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: private
+
+      #      - name: connect and pull
+      #        env:
+      #          ECR_REGISTRY: ${{ steps.login-pf-aws-ecr.outputs.registry }}
+      #          ECR_REPOSITORY: ${{secrets.AWS_ECR_REPO}}
+      #          IMAGE_TAG: ${{ github.run_number }}
+      #        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} "cd /var/www/DALIM && export ECR_PW=`aws ecr get-login-password --region ap-southeast1 --output text | docker login --username AWS --password-stdin` && docker pull $ECR_REGISTRY/$ECR_REPOSITORY:latest && docker compose pull && docker compose up -d && exit"
+
+      - name: Docker pull & run from github
+        uses: appleboy/ssh-action@master
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO }}
+          IMAGE_TAG: ${{ github.run_number }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: ECR_REGISTRY, CONTAINER_NAME, IMAGE_TAG
+          allenvs: true
+          script: |
+            docker system prune -af
+            docker stop $CONTAINER_NAME
+            docker rm $CONTAINER_NAME
+            docker pull $ECR_REGISTRY/$CONTAINER_NAME:$IMAGE_TAG
+            docker run -d --rm --name $CONTAINER_NAME -p 3001:3001 $ECR_REGISTRY/$CONTAINER_NAME:$IMAGE_TAG
