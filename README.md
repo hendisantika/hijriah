@@ -1,4 +1,4 @@
-# horison
+# horison web app
 
 ## Build Setup
 
