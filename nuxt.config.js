@@ -20,8 +20,12 @@ const m = {
             {rel: 'icon', type: 'image/x-icon', href: `${DEPLOY_PATH}favicon.ico`},
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700'},
             {rel: 'stylesheet', href: 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'},
+            {rel: 'stylesheet', type:'text/css', href:'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css' },
+            {rel: 'stylesheet', type:'text/css', href:'https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css' },
+            {rel: 'stylesheet', type:'text/css', href:'https://cdn.jsdelivr.net/npm/select2-bootstrap4-theme@1.0.0/dist/select2-bootstrap4.min.css' },
         ],
         script: [
+          { src: 'https://cdn.jsdelivr.net/npm/select2-bootstrap4-theme@1.0.0/Gruntfile.min.js' },
         ],
         bodyAttrs: {
             class: 'hold-transition sidebar-mini layout-fixed layout-navbar-fixedx layout-footer-fixed'
