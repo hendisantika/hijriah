@@ -110,6 +110,7 @@ const m = {
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
+        transpile: ['three'],
     },
     router: {
         base: DEPLOY_PATH,
