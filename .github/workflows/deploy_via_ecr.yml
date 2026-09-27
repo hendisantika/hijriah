@@ -177,6 +177,9 @@ jobs:
     needs: push-to-ecr
     name: deploy image
     runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
 
     steps:
       - name: Checkout repo
