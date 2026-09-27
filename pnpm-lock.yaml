@@ -26,9 +26,6 @@ importers:
       expose-loader:
         specifier: ^0.7.3
         version: 0.7.5(webpack@4.47.0)
-      icheck-bootstrap:
-        specifier: ^3.0.1
-        version: 3.0.1
       jquery:
         specifier: ^3.1.1
         version: 3.7.1

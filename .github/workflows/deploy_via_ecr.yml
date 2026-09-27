@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 env:
   ENV_GITHUB: ${{ vars.ENV_GITHUB }}
   IMAGE_TAG: ${{ github.run_number }}
@@ -167,7 +168,7 @@ jobs:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
           region: ${{ secrets.AWS_REGION }}
-          image: hijriah:$IMAGE_TAG
+          image: hijriah:${{ github.run_number }}
 
   deploy:
     needs: push-to-ecr

@@ -1,5 +1,5 @@
 #!/bin/bash
-ssh -p "${SERVER_PORT}" "${SERVER_USERNAME}"@"${SERVER_HOST}" -i key.txt -t -t -o StrictHostKeyChecking=no << 'ENDSSH'
+ssh -p "${SERVER_PORT}" "${SERVER_USERNAME}"@"${SERVER_HOST}" -i ~/.ssh/id_rsa -t -t -o StrictHostKeyChecking=no << 'ENDSSH'
 cd ~/hijriah
 cat .env
 set +a
