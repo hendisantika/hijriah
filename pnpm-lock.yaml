@@ -45,8 +45,8 @@ importers:
         specifier: ^2.11.1
         version: 2.11.1
       overlayscrollbars-vue:
-        specifier: ^0.5.9
-        version: 0.5.9(overlayscrollbars@2.11.1)(vue@2.7.16)
+        specifier: ^0.5.10
+        version: 0.5.10(overlayscrollbars@2.11.1)(vue@2.7.16)
       portal-vue:
         specifier: ^2.1.7
         version: 2.1.7(vue@2.7.16)
@@ -4571,8 +4571,8 @@ packages:
     resolution: {integrity: sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==}
     engines: {node: '>=0.10.0'}
 
-  overlayscrollbars-vue@0.5.9:
-    resolution: {integrity: sha512-zZEcsb6llnKaRwXTP44E4RrmwuH+eAi70mgCdiiPwcPBE2H99Vs2V0q7sWnEanqU3462ch38e4SmIMnuH906DQ==}
+  overlayscrollbars-vue@0.5.10:
+    resolution: {integrity: sha512-vu35CJj/kzGBgkxsQyXCCCRRBz/3AvXhkDckuiRHphRE6CwXjbWATY0PVbn2KRy30NbaZhHqueH5yqPo8ItqTA==}
     peerDependencies:
       overlayscrollbars: ^2.0.0
       vue: ^3.2.25
@@ -12588,7 +12588,7 @@ snapshots:
 
   os-tmpdir@1.0.2: {}
 
-  overlayscrollbars-vue@0.5.9(overlayscrollbars@2.11.1)(vue@2.7.16):
+  overlayscrollbars-vue@0.5.10(overlayscrollbars@2.11.1)(vue@2.7.16):
     dependencies:
       overlayscrollbars: 2.11.1
       vue: 2.7.16
