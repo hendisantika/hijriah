@@ -18,8 +18,8 @@ importers:
         specifier: ^4.0.1
         version: 4.1.1
       core-js:
-        specifier: ^3.19.3
-        version: 3.41.0
+        specifier: ^3.50.0
+        version: 3.50.0
       dexie:
         specifier: ^3.2.0
         version: 3.2.7
@@ -2387,8 +2387,8 @@ packages:
     resolution: {integrity: sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==}
     deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
 
-  core-js@3.41.0:
-    resolution: {integrity: sha512-SJ4/EHwS36QMJd6h/Rg+GyR4A5xE0FSI3eZ+iBVpfqf1x0eTSg1smWLHrA+2jQThZSh97fmSgFSU8B61nxosxA==}
+  core-js@3.50.0:
+    resolution: {integrity: sha512-BRWgOLKkFeCgRudR6zrs8p9XJZcE14grzKMMssoYrk6krtuEZ7MTKPIY5RzOnqsEKIR9kst7wNzphttraT+Yqw==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -7982,7 +7982,7 @@ snapshots:
       '@babel/preset-env': 7.26.9(@babel/core@7.26.10)
       '@babel/runtime': 7.27.0
       '@vue/babel-preset-jsx': 1.4.0(@babel/core@7.26.10)(vue@2.7.16)
-      core-js: 3.41.0
+      core-js: 3.50.0
       core-js-compat: 3.41.0
       regenerator-runtime: 0.14.1
     transitivePeerDependencies:
@@ -9510,7 +9510,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.27.0
       '@types/raf': 3.4.3
-      core-js: 3.41.0
+      core-js: 3.50.0
       raf: 3.4.1
       regenerator-runtime: 0.13.11
       rgbcolor: 1.0.1
@@ -9770,7 +9770,7 @@ snapshots:
 
   core-js@2.6.12: {}
 
-  core-js@3.41.0: {}
+  core-js@3.50.0: {}
 
   core-util-is@1.0.3: {}
 
@@ -11966,7 +11966,7 @@ snapshots:
       fflate: 0.8.2
     optionalDependencies:
       canvg: 3.0.11
-      core-js: 3.41.0
+      core-js: 3.50.0
       dompurify: 2.5.8
       html2canvas: 1.4.1
 
