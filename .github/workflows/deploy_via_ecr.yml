@@ -166,7 +166,7 @@ jobs:
           ECR_REPOSITORY: ${{secrets.AWS_ECR_REPO}}
           IMAGE_TAG: ${{ github.run_number }}
         id: ecr
-        uses: jwalton/gh-ecr-push@v1
+        uses: jwalton/gh-ecr-push@v2
         with:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
