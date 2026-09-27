@@ -38,7 +38,7 @@
     "babel-jest": "^27.4.4",
     "fibers": "^5.0.3",
     "jest": "^27.4.4",
-    "sass": "^1.86.2",
+    "sass": "^1.105.0",
     "sass-loader": "10",
     "serialize-to-module": "^1.1.0",
     "vue-jest": "^3.0.4"
