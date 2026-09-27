@@ -15,7 +15,7 @@
     "admin-lte": "^4.0",
     "astronomia": "^4.0.1",
     "core-js": "^3.19.3",
-    "dexie": "^3.2.0",
+    "dexie": "^4.4.6",
     "expose-loader": "^0.7.3",
     "jquery": "^3.1.1",
     "jspdf": "^2.5.1",
