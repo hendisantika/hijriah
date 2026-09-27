@@ -15,8 +15,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0(moment-timezone@0.5.48)(tempusdominus-core@5.19.3(jquery@3.7.1)(moment-timezone@0.5.48)(moment@2.31.0))
       astronomia:
-        specifier: ^4.0.1
-        version: 4.1.1
+        specifier: ^4.2.0
+        version: 4.2.0
       core-js:
         specifier: ^3.50.0
         version: 3.50.0
@@ -1671,8 +1671,8 @@ packages:
     resolution: {integrity: sha512-Q+JC7Whu8HhmTdBph/Tq59IoRtoy6KAm5zzPv00WdujX82lbAL8K7WVjne7vdCsAmbF4AYaDOPyO3k0kl8qIrw==}
     engines: {node: '>=0.10.0'}
 
-  astronomia@4.1.1:
-    resolution: {integrity: sha512-TcJD9lUC5eAo0/Ji7rnQauX/yQbi0yZWM+JsNr77W3OA5fsrgvuFgubLMFwfw4VlZ29cu9dG/yfJbfvuTSftjg==}
+  astronomia@4.2.0:
+    resolution: {integrity: sha512-mTvpBGyXB80aSsDhAAiuwza5VqAyqmj5yzhjBrFhRy17DcWDzJrb8Vdl4Sm+g276S+mY7bk/5hi6akZ5RQFeHg==}
     engines: {node: '>=12.0.0'}
 
   async-each@1.0.6:
@@ -9043,7 +9043,7 @@ snapshots:
 
   assign-symbols@1.0.0: {}
 
-  astronomia@4.1.1: {}
+  astronomia@4.2.0: {}
 
   async-each@1.0.6:
     optional: true
