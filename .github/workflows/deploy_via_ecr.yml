@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
 env:
   ENV_GITHUB: ${{ vars.ENV_GITHUB }}
@@ -48,7 +51,7 @@ jobs:
         run: pnpm run build
 
   docker-build:
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     needs:
       - project-build
@@ -147,6 +150,7 @@ jobs:
   #          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
   push-to-ecr:
+    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     needs: project-build
     env:
