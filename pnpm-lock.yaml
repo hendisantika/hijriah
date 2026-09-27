@@ -54,8 +54,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2(webpack@4.47.0)
       three:
-        specifier: ^0.141.0
-        version: 0.141.0
+        specifier: ^0.186.0
+        version: 0.186.0
       vue:
         specifier: ^2.6.14
         version: 2.7.16
@@ -6127,8 +6127,8 @@ packages:
     peerDependencies:
       webpack: ^4.27.0 || ^5.0.0
 
-  three@0.141.0:
-    resolution: {integrity: sha512-JaSDAPWuk4RTzG5BYRQm8YZbERUxTfTDVouWgHMisS2to4E5fotMS9F2zPFNOIJyEFTTQDDKPpsgZVThKU3pXA==}
+  three@0.186.0:
+    resolution: {integrity: sha512-cr/fIM2ddMSVbYVgkfD4jLJv7Fh/8ZTjvo+7gQeSVGUZHxpx9FDwoL5iC7hUz/LiRA8wMbqfnb90xKfm1/HHkQ==}
 
   throat@6.0.2:
     resolution: {integrity: sha512-WKexMoJj3vEuK0yFEapj8y64V0A6xcuPuK9Gt1d0R+dzCSJc0lHqQytAbSB4cDAK0dWh4T0E2ETkoLE2WZ41OQ==}
@@ -14260,7 +14260,7 @@ snapshots:
       schema-utils: 3.3.0
       webpack: 4.47.0
 
-  three@0.141.0: {}
+  three@0.186.0: {}
 
   throat@6.0.2: {}
 
