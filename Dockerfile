@@ -10,7 +10,7 @@ RUN apk --no-cache add openssh g++ make python3 git
 COPY package.json /app
 COPY pnpm-lock.yaml /app
 # Install app dependencies using PNPM
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.7.1
 # Install dependencies
 RUN pnpm i
 # Copy the application code
