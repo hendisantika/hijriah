@@ -100,11 +100,11 @@ importers:
         specifier: ^27.4.4
         version: 27.5.1
       sass:
-        specifier: ^1.105.0
-        version: 1.105.0
+        specifier: ^1.105.1
+        version: 1.105.1
       sass-loader:
         specifier: '10'
-        version: 10.5.2(fibers@5.0.3)(sass@1.105.0)(webpack@4.47.0)
+        version: 10.5.2(fibers@5.0.3)(sass@1.105.1)(webpack@4.47.0)
       serialize-to-module:
         specifier: ^1.1.0
         version: 1.1.0
@@ -5666,8 +5666,8 @@ packages:
       sass:
         optional: true
 
-  sass@1.105.0:
-    resolution: {integrity: sha512-4EjSuRTyG8M4yRXXY1PT9OUV5zz23xBxJkbIAprohKHqf6HOU4MCpE3U3vAC+iO1gxobBjESNbcj8rYAQZWnyA==}
+  sass@1.105.1:
+    resolution: {integrity: sha512-1CnAWPyrrnVQzXGB/DUep1vYCKCm1CIBr+YxjjiW6wk9qtzemnGP4qicH56T2F9S4Hjtv/Ne3jDz8JqfdDU4oA==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -5845,8 +5845,8 @@ packages:
   source-list-map@2.0.1:
     resolution: {integrity: sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==}
 
-  source-map-js@1.2.1:
-    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+  source-map-js@1.2.2:
+    resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
   source-map-resolve@0.5.3:
@@ -9916,12 +9916,12 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-what@6.1.0: {}
 
@@ -13379,7 +13379,7 @@ snapshots:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   prepend-http@1.0.4: {}
 
@@ -13712,7 +13712,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@10.5.2(fibers@5.0.3)(sass@1.105.0)(webpack@4.47.0):
+  sass-loader@10.5.2(fibers@5.0.3)(sass@1.105.1)(webpack@4.47.0):
     dependencies:
       klona: 2.0.6
       loader-utils: 2.0.4
@@ -13722,13 +13722,13 @@ snapshots:
       webpack: 4.47.0
     optionalDependencies:
       fibers: 5.0.3
-      sass: 1.105.0
+      sass: 1.105.1
 
-  sass@1.105.0:
+  sass@1.105.1:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
     optionalDependencies:
       '@parcel/watcher': 2.6.0
 
@@ -13950,7 +13950,7 @@ snapshots:
 
   source-list-map@2.0.1: {}
 
-  source-map-js@1.2.1: {}
+  source-map-js@1.2.2: {}
 
   source-map-resolve@0.5.3:
     dependencies:
