@@ -100,11 +100,11 @@ importers:
         specifier: ^27.4.4
         version: 27.5.1
       sass:
-        specifier: ^1.105.2
-        version: 1.105.2
+        specifier: ^1.108.0
+        version: 1.108.0
       sass-loader:
         specifier: '10'
-        version: 10.5.2(fibers@5.0.3)(sass@1.105.2)(webpack@4.47.0)
+        version: 10.5.2(fibers@5.0.3)(sass@1.108.0)(webpack@4.47.0)
       serialize-to-module:
         specifier: ^1.1.0
         version: 1.1.0
@@ -3556,8 +3556,8 @@ packages:
   immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
 
-  immutable@5.1.9:
-    resolution: {integrity: sha512-m8nVez3rwrgmWxtLMt1ZYXB2Lv7OKYn/disyxAlSDYAlKSlFoPPfIAmAM/M5xqL4m4C/wAPw7S2/CNaUii1Hxg==}
+  immutable@5.1.10:
+    resolution: {integrity: sha512-Uu72qZXUtm+n98uML3Xr6pVFHl4xnmeCuAsrm0VqFlQim/Ib6NrPSJLpx6CrZ/G6DnoGaCUgtx8gY+o+ovxnCw==}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -5680,8 +5680,8 @@ packages:
       sass:
         optional: true
 
-  sass@1.105.2:
-    resolution: {integrity: sha512-KxW6ZKZiBKWK3ziQ4YZ3cpqo8/1TlHXE8t9nBNvGDZFoBFbk2MD7RacxYFs8zy8hzeFwpFYkVyAhboi47uYPEQ==}
+  sass@1.108.0:
+    resolution: {integrity: sha512-9HwnefouIfwY+XuA1rS5xOhALH5vsoe3SzYICG3MEwpkMbE7tpuh5ytZFRXUKPYkxY7lKdIbqxl+DxQGo8jwQQ==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -11221,7 +11221,7 @@ snapshots:
 
   immediate@3.0.6: {}
 
-  immutable@5.1.9: {}
+  immutable@5.1.10: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -13727,7 +13727,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@10.5.2(fibers@5.0.3)(sass@1.105.2)(webpack@4.47.0):
+  sass-loader@10.5.2(fibers@5.0.3)(sass@1.108.0)(webpack@4.47.0):
     dependencies:
       klona: 2.0.6
       loader-utils: 2.0.4
@@ -13737,12 +13737,12 @@ snapshots:
       webpack: 4.47.0
     optionalDependencies:
       fibers: 5.0.3
-      sass: 1.105.2
+      sass: 1.108.0
 
-  sass@1.105.2:
+  sass@1.108.0:
     dependencies:
       chokidar: 5.0.0
-      immutable: 5.1.9
+      immutable: 5.1.10
       source-map-js: 1.2.2
     optionalDependencies:
       '@parcel/watcher': 2.6.0
