@@ -30,7 +30,7 @@
     "overlayscrollbars-vue": "^0.5.10",
     "portal-vue": "^2.1.7",
     "raw-loader": "^4.0.2",
-    "select2": "^4.0.13",
+    "select2": "^4.1.1",
     "three": "^0.187.0",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
