@@ -21,7 +21,7 @@
     "dexie": "^3.2.0",
     "expose-loader": "^0.7.3",
     "icheck-bootstrap": "^3.0.1",
-    "jquery": "^3.1.1",
+    "jquery": "^3.8.0",
     "jspdf": "^2.5.1",
     "moment": "^2.31.0",
     "nuxt": "^2.15.8",
